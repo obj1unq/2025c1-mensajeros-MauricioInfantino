@@ -1,9 +1,3 @@
-/** First Wollok example */
-object wollok {
-	method howAreYou() {
-		return 'I am Wolloktastic!'
-	}
-}
 
 object paquete{
 	var estaPago = true
@@ -13,11 +7,15 @@ object paquete{
 	}
 
 	method estaPago() = estaPago
+
+	method puedeSerEntregado(mensajero, destino) {
+		return(self.estaPago() && destino.puedePasar(mensajero))
+	}
 }
 
 object puente{
 
-	method puedePasar(unMensajero) = paquete.estaPago && unMensajero.peso() < 1000
+	method puedePasar(unMensajero) = unMensajero.peso() < 1000
 	
 }
 
@@ -46,16 +44,20 @@ object neo{
 }
 
 object lincoln{
-	var pesoDeLincoln = 80
+	var pesoPropio = 80
 	var transporte = camion
-	
+
+	method pesoPropio(_pesoPropio) {
+		pesoPropio=_pesoPropio
+	}
+
 	method puedeLlamar() = false
 
 	method transporte(_unTransporte) {
 	  transporte = _unTransporte
 	}
 
-	method peso() = pesoDeLincoln + transporte.peso()
+	method peso() = pesoPropio + transporte.peso()
 
 }
 
@@ -66,13 +68,9 @@ object bici{
 
 object camion {
   
-  var peso = 500
+  const peso = 500
   var acoples = 0
-  var pesoAcople = 500
-  
-  method pesoAcople(_pesoAcople){
-	pesoAcople= _pesoAcople
-  }
+  const pesoAcople = 500
   
   method acoples(_acoples){
 	acoples=_acoples
